@@ -1,0 +1,29 @@
+/*List the first 10 rows of table transaction data*/
+SELECT *
+FROM transaction_data
+LIMIT 10;
+
+/*Find the full name and email of transactions listing 20252 as the zip code*/
+SELECT full_name, email, zip
+FROM transaction_data
+WHERE zip = '20252';
+
+/*Find the full names 'Art Vandley' or names that include 'der'*/
+SELECT full_name, email 
+FROM transaction_data 
+WHERE full_name LIKE 'Art Vandelay' OR full_name LIKE '%der%';
+
+/*Search for IP addresses beginning with '10'*/
+SELECT ip_address, email
+FROM transaction_data 
+WHERE ip_address LIKE '10%';
+
+/*Find the emails in transaction data that containt 'temp_email.com' as a domain*/
+SELECT email 
+FROM transaction_data
+WHERE email LIKE '%temp_email.com';
+
+/*Find transaction where full name starts with John & IP address starts with 120*/
+SELECT full_name, ip_address
+FROM transaction_data
+WHERE full_name LIKE 'John%' AND ip_address LIKE '120%';
