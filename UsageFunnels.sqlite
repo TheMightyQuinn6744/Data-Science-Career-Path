@@ -1,0 +1,34 @@
+/*Select all columns from the first 10 rows*/
+SELECT *
+FROM survey
+LIMIT 10;
+question, user_id, response columns
+
+/*Calculate the number of responses for each question, create a quiz funnel using GROUP BY*/
+SELECT question, COUNT(DISTINCT user_id) AS 'Responses'
+FROM survey
+GROUP BY 1;
+
+/*Select first 5 rows from table quiz*/
+SELECT *
+FROM quiz 
+LIMIT 5;
+
+/*Select first 5 rows from home_try_on*/
+SELECT *
+FROM home_try_on
+LIMIT 5;
+
+/*Select first 5 rows from purchase*/
+SELECT *
+FROM purchase 
+LIMIT 5;
+
+/*Use a left join to combine three tables starting with funel(quiz) and ending with the bottom of the funnel(purchase), select first 10 rows from the new table*/
+SELECT DISTINCT q.user_id, h.user_id IS NOT NULL AS 'is_home_try_on', h.number_of_pairs, p.user_id IS NOT NULL AS 'is_purcahse'
+FROM quiz q 
+LEFT JOIN home_try_on h 
+  ON q.user_id = h.user_id
+LEFT JOIN purchase p
+  ON p.user_id = q.user_id 
+LIMIT 10;
