@@ -1,0 +1,48 @@
+SELECT *
+FROM startups;
+
+/*Calculate the total number of companies in table startups*/
+SELECT COUNT(name) AS '# Of Companies'
+FROM startups;
+
+/*Calculate the total value of all companies in the startups table*/
+SELECT SUM(valuation) AS 'Total Value of All Companies'
+FROM startups;
+
+/*Return the maximum amount of money raised from a startup during seed stage*/
+SELECT MAX(raised), name
+FROM startups
+WHERE stage = 'Seed';
+
+/*Return the year the oldest company in startups was founded*/
+SELECT MIN(founded) AS 'Oldest Company', name
+FROM startups;
+
+/*Return the average valuation*/
+SELECT category, AVG(valuation)
+FROM startups
+GROUP BY 1;
+
+/*Return the average valuation in each category and round the decimal averages two places*/
+SELECT category, ROUND(AVG(valuation), 2) AS 'Average Rounded to Two Decimal Places'
+FROM startups 
+GROUP BY 1;
+
+/*Return the average valuation in each category and round the decimal averages two places, order by category descending*/
+SELECT category, ROUND(AVG(valuation), 2) AS 'AVG Rounded Two Decimal Places'
+FROM startups 
+GROUP BY 1
+ORDER BY 2 DESC;
+
+/*Return the average valuation in each category and round the decimal averages two places, order by category descending where category has more than 3 companies*/
+SELECT category, COUNT(name) AS '# Of Companies'
+FROM startups
+WHERE category IS NOT NULL
+GROUP BY 1
+HAVING COUNT(category) > 3;
+
+/*Return the average size of a startup in each location, with average sizes above 500*/
+SELECT AVG(employees) AS 'Average Size', location 
+FROM startups
+GROUP BY 2
+HAVING AVG(employees) > 500;
